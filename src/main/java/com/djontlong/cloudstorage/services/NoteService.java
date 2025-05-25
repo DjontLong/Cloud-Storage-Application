@@ -26,7 +26,7 @@ public class NoteService {
     }
 
     public void addNote(Note note) {
-        // add message to database (Note object)
+        // добавление заметки в базу данных (объект Note)
         noteMapper.insert(note);
 
     }
@@ -46,13 +46,13 @@ public class NoteService {
     }
 
     public void updateNote(Note note) {
-        // update in database
+        // обновление в базе данных
         noteMapper.updateNote(note);
 
     }
 
     public void deleteNote(Integer noteId) {
-        // delete in database
+        // удаление из базы данных
         noteMapper.delete(noteId);
 
     }

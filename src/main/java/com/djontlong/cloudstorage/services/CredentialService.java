@@ -1,8 +1,8 @@
 package com.djontlong.cloudstorage.services;
 
 
-import com.udacity.jwdnd.course1.cloudstorage.mapper.CredentialMapper;
-import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
+import com.djontlong.cloudstorage.mapper.CredentialMapper;
+import com.djontlong.cloudstorage.model.Credential;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -35,12 +35,12 @@ public class CredentialService {
     	random.nextBytes(key);
     	String encodedKey = Base64.getEncoder().encodeToString(key);
     	String encryptedPassword = encryptionService.encryptValue(credential.getPassword(), encodedKey);
-    	
-    	//set values to object
+
+		// установка значений в объект
     	credential.setPassword(encryptedPassword);
     	credential.setKey(encodedKey);
-    	
-        // add credential to database (Credential object)
+
+		// добавление учетных данных в базу данных (объект Credential)
         credentialMapper.insert(credential);
      
     }
@@ -65,22 +65,22 @@ public class CredentialService {
     	random.nextBytes(key);
     	String encodedKey = Base64.getEncoder().encodeToString(key);
     	String encryptedPassword = encryptionService.encryptValue(credential.getPassword(), encodedKey);
-    	
-    	//set values to object
+
+		// установка значений в объект
     	credential.setPassword(encryptedPassword);
     	
     	credential.setKey(encodedKey);
-    	
-    	
-		
-		
-		// update in database
+
+
+
+
+		// обновление в базе данных
 		credentialMapper.updateCredential(credential);
 		
 	}
 
 	public void deleteCredential(Integer noteId) {
-		// delete in database
+		// удаление из базы данных
 		credentialMapper.delete(noteId);
 		
 	}

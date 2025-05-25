@@ -23,24 +23,24 @@ public class NotesController {
 
 	@PostMapping("/notes")
 	public String postNote(Authentication auth, Note note, RedirectAttributes redirectAttributes) {
-		// get user name of current user and set it to object
+		// получить имя текущего пользователя и установить его в объект
 		User user = userService.getUser(auth.getName());
 		note.setUserId(user.getUserId());
-		// get String equivalent of NoteId to check if null
+		// получить строковое представление NoteId для проверки на null
 		String stringId = note.getStringId();
-		
-		//if id is none, add note
+
+		// если id отсутствует, добавить заметку
 		if(stringId.isEmpty()) {
 			this.noteService.addNote(note);
-			// success
-	     	redirectAttributes.addFlashAttribute("successEvent", "Note successfully created!");
+			// успех
+	     	redirectAttributes.addFlashAttribute("successEvent", "Заметка успешна создана!");
 		}
-		//if we received an id, update
+		// если id был передан, обновить заметку
 		else{
 			note.setNoteId(Integer.parseInt(stringId));
 			this.noteService.updateNote(note);
-			// success
-	     	redirectAttributes.addFlashAttribute("successEvent", "Note successfully updated!");
+			// успех
+	     	redirectAttributes.addFlashAttribute("successEvent", "Заметка успешна обновлена!");
 		}
 		
 		return "redirect:/home";
@@ -50,9 +50,9 @@ public class NotesController {
     public String deleteNotes(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
         Integer noteId = Integer.parseInt(id);
         noteService.deleteNote(noteId);
-        
-     // success
-     	redirectAttributes.addFlashAttribute("successEvent", "Note successfully deleted!");
+
+		// успех
+     	redirectAttributes.addFlashAttribute("successEvent", "Заметка успешна удалена!");
         return "redirect:/home";
     }
 

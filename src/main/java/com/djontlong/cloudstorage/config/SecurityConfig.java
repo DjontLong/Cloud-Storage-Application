@@ -25,21 +25,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	// allow user to go to the pages/folders listed below
+        // разрешить доступ к указанным страницам/папкам без авторизации
         http.authorizeRequests()
                 .antMatchers("/signup", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated();
 
-        // allow user to go to the login page and use custom page
+        // настройка формы входа и указание кастомной страницы входа
         http.formLogin()
                 .loginPage("/login")
                 .permitAll();
 
-        // if login was successful, sent to specified page
+        // после успешного входа перенаправлять пользователя на указанную страницу
         http.formLogin()
                 .defaultSuccessUrl("/home", true);
-        
-        // log out form
+
+        // настройка формы выхода (logout)
         http.logout()
 		.permitAll();
         

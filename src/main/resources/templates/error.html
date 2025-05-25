@@ -1,0 +1,24 @@
+  
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}">
+	
+    <title>Error</title>
+</head>
+<body class="text-monospace text-uppercase">
+
+    <!-- Main container --->
+<div class="container justify-content-center w-50 p-3" style="margin-top: 5em;">
+    <div class="alert alert-danger fill-parent p-4">
+        <h1 class="display-5">Error</h1>
+        <span>Что-то пошло не так! Клик <a th:href="@{/home}">here</a> to return.</span>
+    </div>
+</div>
+
+</body>
+</html>

@@ -8,7 +8,7 @@ public class Note {
     private int userId;
 
     public Note() {
-        // empty constructor
+        // пустой конструктор
     }
 
     public Note(String noteTitle, String noteDescription) {

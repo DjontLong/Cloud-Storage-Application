@@ -1,7 +1,7 @@
 package com.djontlong.cloudstorage.services;
 
-import com.udacity.jwdnd.course1.cloudstorage.mapper.FileMapper;
-import com.udacity.jwdnd.course1.cloudstorage.model.File;
+import com.djontlong.cloudstorage.mapper.FileMapper;
+import com.djontlong.cloudstorage.model.File;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,17 +23,17 @@ public class FileService {
 		String contentType = multipartFile.getContentType();
 		long fileSize = multipartFile.getSize();
 
-		// Проверяем, существует ли файл с таким именем у пользователя
+		// проверяем, существует ли файл с таким именем у пользователя
 		if (fileMapper.findFileByName(fileName, userId) != null) {
 			throw new IllegalArgumentException("File with this name already exists");
 		}
 
-		// Загружаем файл в MinIO
+		// загружаем файл в MinIO
 		try (InputStream inputStream = multipartFile.getInputStream()) {
 			minioService.uploadFile(fileName, inputStream, fileSize);
 		}
 
-		// Сохраняем метаданные в базу данных
+		// сохраняем метаданные в базу данных
 		File file = new File();
 		file.setFileName(fileName);
 		file.setContentType(contentType);
@@ -62,10 +62,10 @@ public class FileService {
 	public void deleteFile(Integer fileId) throws Exception {
 		File file = getFile(fileId);
 
-		// Удаляем файл из MinIO
+		// удаляем файл из MinIO
 		minioService.deleteFile(file.getFileName());
 
-		// Удаляем запись из базы данных
+		// удаляем запись из базы данных
 		fileMapper.delete(fileId);
 	}
 

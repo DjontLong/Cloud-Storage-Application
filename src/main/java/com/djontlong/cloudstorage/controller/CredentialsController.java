@@ -1,9 +1,5 @@
 package com.djontlong.cloudstorage.controller;
 
-import com.djontlong.cloudstorage.model.Credential;
-import com.djontlong.cloudstorage.model.User;
-import com.djontlong.cloudstorage.services.CredentialService;
-import com.djontlong.cloudstorage.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.djontlong.cloudstorage.model.Credential;
+import com.djontlong.cloudstorage.model.User;
+import com.djontlong.cloudstorage.services.CredentialService;
+import com.djontlong.cloudstorage.services.UserService;
 
 @Controller
 public class CredentialsController {
@@ -22,23 +23,23 @@ public class CredentialsController {
 	@PostMapping("/credentials")
 	public String postCredential(Authentication auth, Credential credential, RedirectAttributes redirectAttributes) {
 
-		// get user name of current user and set it to object
+		// получаем имя текущего пользователя и устанавливаем его в объект
 		User user = userService.getUser(auth.getName());
 		credential.setUserId(user.getUserId());
 
-		// get String equivalent of NoteId to check if null
+		// получаем строковое представление ID учетных данных для проверки
 		String stringId = credential.getStringId();
 
-		// if id is none, add note
+		// если ID отсутствует, добавляем новые учетные данные
 		if (stringId.isEmpty()) {
 			this.credentialService.addCredential(credential);
-			redirectAttributes.addFlashAttribute("successEvent", "Credential successfully created!");
+			redirectAttributes.addFlashAttribute("successEvent", "Данные успешно сохранены!");
 		}
-		// if we received an id, update
+		// если ID получен, обновляем существующие
 		else {
 			credential.setCredentialId(Integer.parseInt(stringId));
 			this.credentialService.updateCredential(credential);
-			redirectAttributes.addFlashAttribute("successEvent", "Credential successfully updated!");
+			redirectAttributes.addFlashAttribute("successEvent", "Данные успешно обновлены!");
 		}
 
 		return "redirect:/home";
@@ -48,7 +49,7 @@ public class CredentialsController {
 	public String deleteCredentials(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
 		Integer credentialId = Integer.parseInt(id);
 		credentialService.deleteCredential(credentialId);
-		redirectAttributes.addFlashAttribute("successEvent", "Credential successfully deleted!");
+		redirectAttributes.addFlashAttribute("successEvent", "Данные успешно удалены!");
 		return "redirect:/home";
 	}
 
