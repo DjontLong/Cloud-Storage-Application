@@ -21,8 +21,8 @@ public interface FileMapper {
 	@Select("SELECT * FROM FILES WHERE fileid = #{id}")
 	public File findFile(Integer id);
 
-	@Insert("INSERT INTO FILES (filename, contenttype, filesize, userid, filedata) "
-			+ "VALUES (#{fileName}, #{contentType}, #{fileSize}, #{userId}, #{fileData})")
+	@Insert("INSERT INTO FILES (filename, contenttype, filesize, userid) "
+			+ "VALUES (#{fileName}, #{contentType}, #{fileSize}, #{userId})")
 	@Options(useGeneratedKeys = true, keyProperty = "fileId")
 	public void insert(File file);
 

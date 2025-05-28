@@ -6,7 +6,6 @@ public class File {
     private String contentType;
     private String fileSize;
     private Integer userId;
-    private byte fileData[];
 
     public File() {
         // пустой конструктор
@@ -52,11 +51,4 @@ public class File {
         this.userId = userid;
     }
 
-    public byte[] getFileData() {
-        return fileData;
-    }
-
-    public void setFileData(byte[] fileData) {
-        this.fileData = fileData;
-    }
 }

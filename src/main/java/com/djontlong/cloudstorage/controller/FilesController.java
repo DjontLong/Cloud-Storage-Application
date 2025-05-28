@@ -40,17 +40,17 @@ public class FilesController {
 			User user = userService.getUser(auth.getName());
 
 			if (fileUpload.isEmpty()) {
-				throw new IllegalArgumentException("Please select a file to upload");
+				throw new IllegalArgumentException("Пожалуйста выберите файл для загрузки");
 			}
 
 			fileService.addFile(fileUpload, user.getUserId());
-			redirectAttributes.addFlashAttribute("success", "File uploaded successfully!");
+			redirectAttributes.addFlashAttribute("success", "Файл успешно загружен!");
 		} catch (DuplicatedFileException e) {
-			redirectAttributes.addFlashAttribute("error", "File with this name already exists");
+			redirectAttributes.addFlashAttribute("error", "Файл с таким именем уже существует");
 		} catch (IllegalArgumentException e) {
 			redirectAttributes.addFlashAttribute("error", e.getMessage());
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Failed to upload file: " + e.getMessage());
+			redirectAttributes.addFlashAttribute("error", "Ошибка загрузки файла: " + e.getMessage());
 		}
 
 		return "redirect:/home";
@@ -60,9 +60,9 @@ public class FilesController {
 	public String deleteFile(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		try {
 			fileService.deleteFile(id);
-			redirectAttributes.addFlashAttribute("success", "File deleted successfully!");
+			redirectAttributes.addFlashAttribute("success", "Файл успешно удален!");
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Failed to delete file: " + e.getMessage());
+			redirectAttributes.addFlashAttribute("error", "Ошибка удаления файла: " + e.getMessage());
 		}
 		return "redirect:/home";
 	}
@@ -87,7 +87,7 @@ public class FilesController {
 
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public String handleMaxSizeException(RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("error", "File size exceeds maximum allowed limit");
+		redirectAttributes.addFlashAttribute("error", "Размер файла превышает максимально допустимый предел");
 		return "redirect:/home";
 	}
 
