@@ -225,7 +225,7 @@
 <script type="text/javascript">
     // проверка размера файла перед загрузкой
     $('#fileUpload').on('change', function() {
-        if (this.files[0].size > 5000000) {
+        if (this.files[0].size > 50000000) {
             alert("Файл имеет недопустимый размер. Разрешён максимальный размер: 5Мб");
             this.value = '';
         }
